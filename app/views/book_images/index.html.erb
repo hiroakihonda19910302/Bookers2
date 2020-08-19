@@ -1,0 +1,62 @@
+<p id="notice"><%= notice %></p>
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-3">
+      <h2>User info</h2>
+    </div>
+
+    <div class="col-lg-9">
+      <table class="table table-striped">
+      	<h2>Books</h2>
+        <thead>
+          <tr>
+            <th colspan="1"></th>
+            <th>Title</th>
+            <th>Opinion</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @book_images.each do |book_image| %>
+            <tr>
+              <td><%= attachment_image_tag book_image.user, :profile_image, :fill, 60, 60, fallback: "no_image.jpg", class: "img-circle pull-left profile-thumb" %></td>
+              <td><%= book_image.title, link_to book_image_path(book_image.id) %></td>
+              <td><%= book_image.body %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-3">
+
+      <h2>New Book</h2>
+        <%= form_for(@book_image) do |f| %>
+
+          <% if @book_image.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= @book_image.errors.count %> prohibited this book from being saved:</h2>
+                <ul>
+                  <% @book_image.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+            </div>
+          <% end %>
+
+          <div class="field">
+            <p class="">Title</p>
+            <%= f.text_field :title %>
+            <p class="">Body</p>
+            <%= f.text_area :body %>
+            <p class=""><%= link_to 'Create Book', new_book_image_path, class: "btn btn-default" %></p>
+          </div>
+        <% end %>
+    </div>
+  </div>
+</div>
+
+
+
